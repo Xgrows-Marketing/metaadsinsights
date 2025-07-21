@@ -30,11 +30,11 @@ export const CSVUploader = ({ onDataParsed }: CSVUploaderProps) => {
       complete: (results) => {
         try {
           const parsedData: CSVData[] = results.data.map((row: any) => ({
-            eventName: row["Event Name"] || row["eventName"] || "",
-            adSpend: parseFloat(row["Amount Spent"] || row["adSpend"] || "0"),
+            eventName: row["Ad Set Name"] || row["Event Name"] || row["eventName"] || "",
+            adSpend: parseFloat(row["Amount spent (GBP)"] || row["Amount Spent"] || row["adSpend"] || "0"),
             ticketsSold: parseInt(row["Tickets Sold"] || row["ticketsSold"] || "0"),
-            linkClicks: parseInt(row["Link Clicks"] || row["linkClicks"] || "0")
-          })).filter(item => item.eventName); // Filter out empty rows
+            linkClicks: parseInt(row["Link clicks"] || row["Link Clicks"] || row["linkClicks"] || "0")
+          })).filter(item => item.eventName && item.eventName.trim() !== ""); // Filter out empty rows
 
           if (parsedData.length === 0) {
             throw new Error("No valid data found in CSV");
@@ -124,7 +124,7 @@ export const CSVUploader = ({ onDataParsed }: CSVUploaderProps) => {
                   Drop your CSV file here or click to browse
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  CSV should contain: Event Name, Amount Spent, Tickets Sold, Link Clicks
+                  Upload your Meta Ads export CSV file
                 </p>
               </div>
               <label>
@@ -148,7 +148,7 @@ export const CSVUploader = ({ onDataParsed }: CSVUploaderProps) => {
           <div className="flex items-start gap-2">
             <AlertCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
             <div className="text-xs text-muted-foreground">
-              <strong>Expected CSV columns:</strong> Event Name, Amount Spent, Tickets Sold, Link Clicks
+              <strong>Supports Meta Ads export format:</strong> Automatically maps Ad Set Name, Amount spent (GBP), Tickets Sold, and Link clicks columns
             </div>
           </div>
         </div>
