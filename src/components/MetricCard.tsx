@@ -21,36 +21,45 @@ export const MetricCard = ({
   const getVariantStyles = () => {
     switch (variant) {
       case "primary":
-        return "bg-gradient-primary shadow-glow border-primary/20";
+        return "bg-gradient-primary text-primary-foreground shadow-glow border-primary/20";
       case "accent":
-        return "bg-gradient-accent shadow-glow border-accent/20";
+        return "bg-gradient-accent text-accent-foreground shadow-glow border-accent/20";
       default:
-        return "bg-gradient-card shadow-card border-border";
+        return "bg-card text-card-foreground shadow-card border-border";
     }
   };
 
   return (
     <Card className={cn(
-      "transition-all duration-300 hover:scale-105 hover:shadow-glow",
+      "transition-all duration-300 hover:scale-105 hover:shadow-elevated",
       getVariantStyles(),
       className
     )}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+        <CardTitle className={cn(
+          "text-sm font-medium",
+          variant === "default" ? "text-muted-foreground" : "text-current opacity-80"
+        )}>
           {title}
         </CardTitle>
         {icon && (
-          <div className="text-accent">
+          <div className={cn(
+            "text-current",
+            variant === "default" && "text-accent"
+          )}>
             {icon}
           </div>
         )}
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-primary-foreground mb-1">
+        <div className="text-3xl font-bold mb-1">
           {value}
         </div>
         {description && (
-          <p className="text-xs text-muted-foreground">
+          <p className={cn(
+            "text-xs",
+            variant === "default" ? "text-muted-foreground" : "text-current opacity-70"
+          )}>
             {description}
           </p>
         )}
