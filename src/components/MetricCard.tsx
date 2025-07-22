@@ -46,7 +46,7 @@ export const MetricCard = ({
         )}
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-white mb-1">
+        <div className="text-2xl font-bold text-primary-foreground mb-1">
           {value}
         </div>
         {description && (
