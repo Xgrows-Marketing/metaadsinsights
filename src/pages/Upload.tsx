@@ -1,4 +1,5 @@
 import { Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { CSVUploader } from "@/components/CSVUploader";
 import psychicVisionLogo from "@/assets/psychic-vision-logo.png";
 
@@ -9,11 +10,12 @@ interface CSVData {
   linkClicks: number;
 }
 
-interface UploadPageProps {
-  onDataParsed: (data: CSVData[]) => void;
-}
+const Upload = () => {
+  const navigate = useNavigate();
 
-const Upload = ({ onDataParsed }: UploadPageProps) => {
+  const handleDataParsed = (data: CSVData[]) => {
+    navigate('/results', { state: { data } });
+  };
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -58,7 +60,7 @@ const Upload = ({ onDataParsed }: UploadPageProps) => {
           </div>
 
           <div className="animate-fade-in">
-            <CSVUploader onDataParsed={onDataParsed} />
+            <CSVUploader onDataParsed={handleDataParsed} />
           </div>
 
           {/* Instructions */}
