@@ -20,7 +20,7 @@ export const PerformanceChart = ({ data }: PerformanceChartProps) => {
 
   const pieData = data.map((item, index) => ({
     name: item.eventName,
-    value: item.adSpend,
+    value: item.ticketsSold,
     color: COLORS[index % COLORS.length]
   }));
 
